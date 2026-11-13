@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find the error behind a failed React or Vercel build and get a practical fix. Your logs stay in your browser.">
+  <meta name="theme-color" content="#f8f9fc">
+  <title>BuildClinic — Deployment log checker</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+  <script src="./assets/diagnostics.js" defer></script>
+  <script src="./assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to log checker</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="BuildClinic home"><span class="brand-icon" aria-hidden="true"><span></span></span>BuildClinic</a>
+      <nav aria-label="Main navigation">
+        <a href="#workspace">Log checker</a>
+        <a href="#coverage">Supported errors</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <h1 id="page-title">Find out why<br class="desktop-break"> your deploy <em>failed.</em></h1>
+        <p>Paste a React or Vercel build log. Find the error lines, follow the repair steps, and check your fixes before you deploy again.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-grid"></div>
+        <div class="art-window">
+          <div class="art-bar"><i></i><i></i><i></i><span>build.log</span></div>
+          <div class="art-body">
+            <div><b>14</b><span><strong>›</strong> npm run build</span></div>
+            <div><b>15</b><span>Transforming modules<span class="soft-text">...</span></span></div>
+            <div class="art-error"><b>16</b><span>Could not resolve <strong>./Navbar.jsx</strong></span></div>
+            <div><b>17</b><span class="soft-text">Build exited with code 1</span></div>
+          </div>
+          <div class="art-tag"><span></span> Error located</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace" aria-labelledby="workspace-title">
+      <div class="section-intro">
+        <h2 id="workspace-title">Log checker</h2>
+        <p class="privacy"><span class="lock-icon" aria-hidden="true"></span>Your logs stay in this browser</p>
+      </div>
+
+      <div class="work-grid">
+        <form class="card input-card" id="log-form">
+          <div class="card-heading">
+            <div>
+              <label class="card-title" for="build-log">Build log</label>
+              <p id="log-help">Paste your log or open a text file.</p>
+            </div>
+            <label class="file-button" for="log-file"><span aria-hidden="true">↑</span> Open file</label>
+            <input id="log-file" class="visually-hidden file-input" type="file" accept=".log,.txt,text/plain">
+          </div>
+          <div class="editor">
+            <div class="editor-bar" aria-hidden="true"><i></i><i></i><i></i><span>BUILD OUTPUT</span></div>
+            <textarea id="build-log" rows="9" wrap="off" maxlength="250000" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="log-help" placeholder="Paste your build output here…"></textarea>
+            <div class="editor-footer"><span id="log-count">0 characters</span><button id="clear-log" type="button" disabled>Clear</button></div>
+          </div>
+          <div class="sample-row" aria-label="Example logs">
+            <span>Try a sample</span>
+            <button type="button" data-sample="import">Broken import</button>
+            <button type="button" data-sample="dependency">Missing package</button>
+            <button type="button" data-sample="command">Build script</button>
+            <button type="button" data-sample="lockfile">Stale lockfile</button>
+            <button type="button" data-sample="environment">Missing variable</button>
+            <button type="button" data-sample="multiple">Multiple errors</button>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="primary-button"><span aria-hidden="true">⌕</span> Check my build log</button>
+            <span class="shortcut"><kbd id="shortcut-key">Ctrl</kbd> + <kbd>Enter</kbd></span>
+          </div>
+          <p class="feedback" id="input-feedback" role="status" hidden></p>
+          <noscript><p class="feedback">Enable JavaScript to check logs in your browser.</p></noscript>
+        </form>
+
+        <section class="card result-card" aria-labelledby="result-title">
+          <div class="card-heading result-heading">
+            <div>
+              <h3 class="card-title" id="result-title" tabindex="-1">Diagnosis</h3>
+              <p>Matched error and next steps</p>
+            </div>
+            <span class="result-status" id="result-status" role="status"><i aria-hidden="true"></i> Ready</span>
+          </div>
+          <div class="empty-result" id="result-empty">
+            <div class="empty-icon" aria-hidden="true"><span></span></div>
+            <h4>Waiting for a build log</h4>
+            <p>Check a log to see the error line, suggested fixes, and how to verify them.</p>
+          </div>
+          <div class="result-content" id="result-content" hidden></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="coverage" class="coverage" aria-labelledby="coverage-title">
+      <h2 id="coverage-title">Supported errors</h2>
+      <ul>
+        <li><span class="coverage-icon" aria-hidden="true">↳</span><div><strong>Imports &amp; packages</strong><p>Unresolved imports, missing exports, peer dependency conflicts, and lockfile mismatches.</p></div></li>
+        <li><span class="coverage-icon" aria-hidden="true">›_</span><div><strong>Build settings</strong><p>Missing scripts or commands, incorrect output directories, and Node.js version mismatches.</p></div></li>
+        <li><span class="coverage-icon" aria-hidden="true">{ }</span><div><strong>Code &amp; configuration</strong><p>TypeScript, syntax, missing environment variable, and JavaScript heap errors.</p></div></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner"><a class="brand" href="./"><span class="brand-icon" aria-hidden="true"><span></span></span>BuildClinic</a><a href="#workspace">Back to log checker ↑</a></div>
+  </footer>
+</body>
+</html>
