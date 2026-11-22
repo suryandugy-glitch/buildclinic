@@ -1,7 +1,10 @@
 # BuildClinic
 
-**BuildClinic by Cellar**  
+**BuildClinic by Cellar**
+
 *Find the error. Fix the build.*
+
+[Open BuildClinic](https://buildclinic.vercel.app)
 
 Cellar makes tools that help developers diagnose and fix problems across their software stack. BuildClinic is the first.
 
