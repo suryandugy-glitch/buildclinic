@@ -1,4 +1,11 @@
-# BuildClinic
+<img src="public/cellar-logo.png" width="64" height="64" alt="BuildClinic logo">
+
+# BuildClinic by Cellar
+
+[Launch BuildClinic](https://buildclinic.vercel.app/) · [Report an issue](https://github.com/suryandugy-glitch/buildclinic/issues)
+
+Paste a build log or select Multiple errors. Expand a finding to jump to the matching line, then download the diagnosis.
+
 
 **BuildClinic by Cellar**
 
