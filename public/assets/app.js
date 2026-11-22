@@ -132,6 +132,39 @@ function showDiagnosis(result) {
     copyText.push(message);
   }
 
+  if (result.additional?.length) {
+    const toggle = element("button", "Expand all matches", "copy-button");
+    toggle.type = "button";
+    const findings = parts.filter((part) => part.tagName === "DETAILS");
+    toggle.addEventListener("click", () => {
+      const expand = findings.some((finding) => !finding.open);
+      findings.forEach((finding) => { finding.open = expand; });
+      toggle.textContent = expand ? "Collapse all matches" : "Expand all matches";
+    });
+    findings.forEach((finding) => finding.addEventListener("toggle", () => {
+      toggle.textContent = findings.every((item) => item.open)
+        ? "Collapse all matches" : "Expand all matches";
+    }));
+    parts.push(toggle);
+  }
+
+  const download = element("button", "Download report (.md)", "copy-button");
+  download.type = "button";
+  download.addEventListener("click", () => {
+    const report = new Blob(["# BuildClinic diagnosis\n\n", copyText.join("\n\n"), "\n"], {
+      type: "text/markdown;charset=utf-8"
+    });
+    const url = URL.createObjectURL(report);
+    const link = element("a");
+    link.href = url;
+    link.download = "buildclinic-diagnosis.md";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  parts.push(download);
+
   if (navigator.clipboard?.writeText) {
     const copy = element("button", "Copy diagnosis", "copy-button");
     copy.type = "button";
@@ -201,11 +234,7 @@ for (const button of document.querySelectorAll("[data-sample]")) {
   });
 }
 
-fileInput.addEventListener("change", async () => {
-  const [file] = fileInput.files;
-  fileInput.value = "";
-  if (!file) return;
-
+async function openLogFile(file) {
   const version = ++inputVersion;
   if (file.size > MAX_LENGTH * 4) {
     announceInput("This file is too large. Open a smaller text log around the failure.");
@@ -228,6 +257,29 @@ fileInput.addEventListener("change", async () => {
   } catch {
     if (version === inputVersion) announceInput("This file could not be opened. Paste the log directly instead.");
   }
+}
+
+fileInput.addEventListener("change", () => {
+  const [file] = fileInput.files;
+  fileInput.value = "";
+  if (file) openLogFile(file);
+});
+
+const editor = log.closest(".editor");
+editor.addEventListener("dragover", (event) => {
+  if (!event.dataTransfer.types.includes("Files")) return;
+  event.preventDefault();
+  event.dataTransfer.dropEffect = "copy";
+});
+editor.addEventListener("drop", (event) => {
+  const files = event.dataTransfer.files;
+  if (!files.length) return;
+  event.preventDefault();
+  if (files.length !== 1) {
+    announceInput("Open one log file at a time.");
+    return;
+  }
+  openLogFile(files[0]);
 });
 
 inputChanged();

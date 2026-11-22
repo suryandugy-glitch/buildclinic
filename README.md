@@ -1,9 +1,9 @@
 # BuildClinic
 
-**BuildClinic by StackRemedy Labs**  
+**BuildClinic by Cellar**  
 *Find the error. Fix the build.*
 
-StackRemedy Labs makes tools that help developers diagnose and fix problems across their software stack. BuildClinic is the first.
+Cellar makes tools that help developers diagnose and fix problems across their software stack. BuildClinic is the first.
 
 BuildClinic checks deployment and build logs for common React, Next.js, Vite, and Vercel build failures. It locates the matching error lines in your log, provides actionable step-by-step repair instructions with ready-to-run terminal commands, and explains how to verify each fix before redeploying. Users can paste a log, drag and drop or open a text log file, or test the checker using built-in interactive samples.
 
@@ -23,16 +23,14 @@ Logs stay strictly in your browser. BuildClinic uses no external APIs, server en
 
 - **Instant Browser-Based Analysis:** Analyzes build logs up to 250,000 characters in milliseconds with zero server roundtrips.
 - **Drag-and-Drop & File Upload:** Drop `.log` or `.txt` files directly onto the editor or browse via the file dialog.
-- **Tool & Framework Detection:** Automatically identifies tools mentioned in the log, including Next.js, Vite, Create React App, Astro, Nuxt, Remix, npm, pnpm, yarn, bun, TypeScript, Tailwind CSS, and ESLint.
 - **Precise Line Tracking:** Jumps directly to the error line in the editor, scrolling it into view and highlighting the code.
 - **Step-by-Step Fix Recipes:** Clear, copyable shell commands tailored to the diagnosed issue.
 - **Export & Share:** Copy diagnosis to clipboard or export a clean Markdown (`.md`) diagnosis report.
-- **Dark & Light Mode:** Built-in theme switcher respecting system preferences and saved choices.
 - **Keyboard Shortcuts:** Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> (or <kbd>Cmd</kbd> + <kbd>Enter</kbd> on macOS) to instantly check the log.
 
 ## Run locally
 
-Extract the ZIP. Open `public/index.html` directly in any modern browser, then select **Broken import** or another sample.
+Clone or download this repository. Open `public/index.html` directly in any modern browser, then select **Broken import** or another sample.
 
 To serve it locally with Python 3, open a terminal in the project directory:
 
@@ -50,7 +48,7 @@ npx serve public
 
 ## Upload to GitHub
 
-1. Create a new GitHub repository named `buildclinic` (owner: `stackremedy-labs` or your GitHub account/organization).
+1. Create a new GitHub repository named `buildclinic` (owner: `suryandugy-glitch`).
 2. In the repository, choose **Add file → Upload files** or use Git:
    ```bash
    git init
